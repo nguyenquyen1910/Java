@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GUI code/GUI code.iml" filepath="$PROJECT_DIR$/GUI code/GUI code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java.iml" filepath="$PROJECT_DIR$/.idea/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java Code PTIT/Java Code PTIT.iml" filepath="$PROJECT_DIR$/Java Code PTIT/Java Code PTIT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Practice/Practice File.iml" filepath="$PROJECT_DIR$/Practice/Practice File.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thuc Hanh 1/Thuc Hanh 1.iml" filepath="$PROJECT_DIR$/Thuc Hanh 1/Thuc Hanh 1.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,1 @@
+{"name":"Local: IntSet","url":"c:\\Users\\PC\\OneDrive\\Workspace\\CODE\\Java\\oop\\IntSet.java","tests":[{"id":1720170805963,"input":"14 5\n92 36 73 11 78 19 57 76 96 58 36 38 29 42\n19 21 15 4 78","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\PC\\OneDrive\\Workspace\\CODE\\Java\\oop\\IntSet.java","group":"local","local":true}
