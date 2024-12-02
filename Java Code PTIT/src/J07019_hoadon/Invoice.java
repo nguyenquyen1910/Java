@@ -1,52 +1,46 @@
 package J07019_hoadon;
 
 public class Invoice {
-    private String id;
     private String invoiceId;
+    private String productId;
     private int quantity;
-    private Product product;
     private long discount;
-    private long totalPrice;
+    private long price;
+    private Product product;
+    private long totalAmount;
 
-    public Invoice(int i, String invoiceId, int quantity) {
-        this.invoiceId = invoiceId;
-        this.id = invoiceId + "-" + String.format("%03d", i + 1);
+    public Invoice(int i, String productId, int quantity) {
+        this.productId = productId;
+        this.invoiceId = productId + "-" + String.format("%03d", i+1);
         this.quantity = quantity;
+    }
+
+    public String getProductId() {
+        return productId;
     }
 
     public void setProduct(Product product) {
         this.product = product;
-        this.totalPrice = solveTotalPrice();
+        this.price = productId.endsWith("1") ? product.getPrice1() : product.getPrice2();
         this.discount = solveDiscount();
+        this.totalAmount = this.price * this.quantity - this.discount;
     }
 
-    public String getInvoiceId() {
-        return invoiceId;
-    }
-
-    public long solveTotalPrice() {
-        long res=0;
-        if(Integer.parseInt(invoiceId.substring(2))==1){
-            res = product.getPrice1() * quantity;
-        }
-        else{
-            res = product.getPrice2() * quantity;
-        }
-        return res;
-    }
-
-    public long solveDiscount(){
+    private long solveDiscount() {
         if(quantity>=150){
-            return (long) (totalPrice * 0.5);
+            return (long) (price*quantity*0.5);
         }
         if(quantity>=100){
-            return (long) (totalPrice * 0.3);
+            return (long) (price*quantity*0.3);
         }
-        return (long) (totalPrice * 0.15);
+        if(quantity>=50){
+            return (long) (price*quantity*0.15);
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return id+" "+product.getName()+" "+discount+" "+(totalPrice-discount);
+        return invoiceId+" "+product.getName()+" "+discount+" "+totalAmount;
     }
 }

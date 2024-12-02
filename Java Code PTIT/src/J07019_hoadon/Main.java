@@ -12,28 +12,25 @@ public class Main {
         int n = Integer.parseInt(sc.nextLine());
         List<Product> products = new ArrayList<>();
         for(int i=0;i<n;i++){
-            products.add(new Product(sc.nextLine(),sc.nextLine(),Integer.parseInt(sc.nextLine()),Integer.parseInt(sc.nextLine())));
+            products.add(new Product(sc.nextLine().trim(), sc.nextLine().trim(), Long.parseLong(sc.nextLine().trim()), Long.parseLong(sc.nextLine().trim())));
         }
         Scanner sc1 = new Scanner(new File("DATA2.in"));
         int m = Integer.parseInt(sc1.nextLine());
         List<Invoice> invoices = new ArrayList<>();
         for(int i=0;i<m;i++){
-            String[] tmp = sc1.nextLine().split("\\s+");
-            String invoidId = tmp[0];
-            int quantity = Integer.parseInt(tmp[1]);
-            invoices.add(new Invoice(i,invoidId,quantity));
+            String[] tmp = sc1.nextLine().trim().split(" ", 2);
+            invoices.add(new Invoice(i, tmp[0].trim(), Integer.parseInt(tmp[1].trim())));
         }
 
         for(Invoice invoice : invoices){
             for(Product product : products){
-                if(invoice.getInvoiceId().substring(0,2).equals(product.getProductId())){
+                if(invoice.getProductId().substring(0,2).equals(product.getProductId())){
                     invoice.setProduct(product);
+                    break;
                 }
             }
         }
 
-        for(Invoice invoice : invoices){
-            System.out.println(invoice);
-        }
+        invoices.forEach(System.out::println);
     }
 }

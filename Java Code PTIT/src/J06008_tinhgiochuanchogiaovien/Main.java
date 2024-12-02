@@ -10,21 +10,21 @@ public class Main {
         int n = Integer.parseInt(sc.nextLine());
         List<Subject> subjects = new ArrayList<>();
         for(int i=0;i<n;i++){
-            String[] tmp = sc.nextLine().trim().split("\\s+",2);
+            String[] tmp = sc.nextLine().trim().split(" ",2);
             subjects.add(new Subject(tmp[0],tmp[1]));
         }
 
         int m = Integer.parseInt(sc.nextLine());
         List<Lecturer> lecturers = new ArrayList<>();
         for(int i=0;i<m;i++){
-            String[] tmp = sc.nextLine().trim().split("\\s+",2);
+            String[] tmp = sc.nextLine().trim().split(" ",2);
             lecturers.add(new Lecturer(tmp[0],tmp[1]));
         }
 
         int o = Integer.parseInt(sc.nextLine());
         List<Time> times = new ArrayList<>();
         for(int i=0;i<o;i++){
-            String[] tmp = sc.nextLine().trim().split("\\s+");
+            String[] tmp = sc.nextLine().trim().split(" ");
             times.add(new Time(tmp[0],tmp[1],Double.parseDouble(tmp[2])));
         }
 
@@ -47,12 +47,18 @@ public class Main {
         }
 
         String query = sc.nextLine();
+        String lecturer="";
+        String totalTime="";
+        List<Subject> resSub = new ArrayList<>();
         for(Time time : times){
-            if(query.equals(time.getLecId())){
-                System.out.println("Giang vien: "+time.getLecturer().getName());
-                System.out.println(time.getSubject().getName()+" "+time.getSubject().getTotalTime());
-                System.out.println("Tong: "+String.format("%.2f",time.getLecturer().getTotalTime()));
+            if(time.getLecId().equals(query)){
+                lecturer = "Giang vien: "+time.getLecturer().getName();
+                totalTime = "Tong: "+String.format("%.2f",time.getLecturer().getTotalTime());
+                resSub.add(time.getSubject());
             }
         }
+        System.out.println(lecturer);
+        resSub.forEach(System.out::println);
+        System.out.println(totalTime);
     }
 }

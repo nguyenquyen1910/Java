@@ -8,6 +8,7 @@ public class Subject {
     public Subject(String id, String name) {
         this.id = id;
         this.name = name;
+        this.totalTime = 0.0;
     }
 
     public String getId() {
@@ -24,5 +25,10 @@ public class Subject {
 
     public double getTotalTime() {
         return totalTime;
+    }
+
+    @Override
+    public String toString() {
+        return name+" "+totalTime;
     }
 }

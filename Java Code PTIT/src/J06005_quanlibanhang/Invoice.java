@@ -43,6 +43,9 @@ public class Invoice implements Comparable<Invoice> {
 
     @Override
     public int compareTo(Invoice o) {
-        return Integer.compare(o.quantity,this.quantity);
+        if(this.total!=o.total){
+            return o.total-this.total;
+        }
+        return this.invoId.compareTo(o.invoId);
     }
 }

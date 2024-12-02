@@ -7,6 +7,7 @@ public class Lecturer {
     public Lecturer(String id, String name) {
         this.id = id;
         this.name = name;
+        this.totalTime = 0.0;
     }
 
     public String getId() {

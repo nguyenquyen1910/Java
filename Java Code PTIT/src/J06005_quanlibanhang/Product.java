@@ -20,10 +20,6 @@ public class Product {
         return proName;
     }
 
-    public String getProUnit() {
-        return proUnit;
-    }
-
     public int getProBuy() {
         return proBuy;
     }
