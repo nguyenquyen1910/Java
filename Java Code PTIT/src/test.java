@@ -1,119 +1,89 @@
 import java.util.*;
+import java.io.*;
+import java.text.*;
 
 public class test {
-    static class sub {
-        String code, name;
-        double sum;
+    static String cleanName(String name){
+        String[] a = name.trim().split("\\s+");
+        for(int i=0;i<a.length;i++) a[i] = Character.toString(a[i].charAt(0)).toUpperCase() + a[i].substring(1).toLowerCase();
+        return String.join(" ", a);
+    }
 
-        public sub(String s) {
-            String[] a = s.trim().split(" ", 2);
-            code = a[0];
-            name = a[1];
-        }
-
-        public sub(sub x) {
-            code = x.code;
-            name = x.name;
-            sum = x.sum;
-        }
-
-        public boolean is(String s) {
-            return s.startsWith(code);
+    static class MH{
+        String code, name, tc;
+        public MH(String code, String name, String tc){
+            this.code = code;
+            this.name = name;
+            this.tc = tc;
         }
 
         @Override
-        public String toString() {
-            return name + ' ' + sum;
+        public String toString(){
+            return name;
         }
     }
 
-    static class gv {
-        String code, name;
-        double sum;
-        ArrayList<sub> a;
-
-        public gv(String s) {
-            a = new ArrayList<>();
-            sum = 0;
-            String[] a = s.trim().split(" ", 2);
-            code = a[0];
-            name = a[1];
+    static class SV{
+        String code, name, cl, mail;
+        public SV(String code, String name, String cl, String mail){
+            this.code = code;
+            this.name = cleanName(name);
+            this.cl = cl;
+            this.mail = mail;
         }
+    }
 
-        public boolean is(String s) {
-            return s.startsWith(code);
-        }
+    static class BD{
+        MH mh;
+        SV sv;
+        String point;
+        Double Point;
 
-        public boolean contain(sub x) {
-            for (int i = 0; i < a.size(); i++) {
-                if (a.get(i).is(x.code))
-                    return true;
-            }
-            return false;
-        }
-
-        public void add(sub x) {
-            if (this.contain(x)) {
-                for (int i = 0; i < a.size(); i++) {
-                    if (a.get(i).is(x.code)) {
-                        a.get(i).sum += x.sum;
-                        break;
-                    }
-                }
-            } else {
-                this.a.add(x);
-            }
+        public BD(SV sv, MH mh, String point){
+            this.mh = mh;
+            this.sv = sv;
+            this.point = point;
+            this.Point = Double.parseDouble(point);
         }
 
         @Override
-        public String toString() {
-            return name + ' ' + String.format("%.2f", sum);
+        public String toString(){
+            return sv.code + " " + sv.name + " " + sv.cl + " " + point;
         }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int k = sc.nextInt();
-        ArrayList<sub> s = new ArrayList<>();
-        sc.nextLine();
-        for (int i = 0; i < k; i++) {
-            s.add(new sub(sc.nextLine()));
+    public static void main(String[] args) throws IOException {
+        Scanner sc_sv = new Scanner(System.in);
+        HashMap<String, SV> hsv = new HashMap<>();
+        HashMap<String, MH> hmh = new HashMap<>();
+        int nsv = sc_sv.nextInt();
+        sc_sv.nextLine();
+        for(int i=0;i<nsv;i++){
+            SV x = new SV(sc_sv.nextLine(), sc_sv.nextLine(), sc_sv.nextLine(), sc_sv.nextLine());
+            hsv.put(x.code, x);
         }
-        int n = sc.nextInt();
-        ArrayList<gv> a = new ArrayList<>();
-        sc.nextLine();
-        for (int i = 1; i <= n; i++)
-            a.add(new gv(sc.nextLine()));
-        int m = sc.nextInt();
-        for (int i = 0; i < m; i++) {
-            String gcode = sc.next();
-            String scode = sc.next();
-            double time = sc.nextDouble();
-            int ind = 0;
-            sub x = new sub(s.get(0));
-            for (int j = 0; j < n; j++) {
-                if (a.get(j).is(gcode)) {
-                    ind = j;
-                    break;
-                }
-            }
-            for (int j = 0; j < k; j++) {
-                if (s.get(j).is(scode)) {
-                    x=new sub(s.get(j));
-                    break;
-                }
-            }
-            x.sum = time;
-            a.get(ind).add(x);
-            a.get(ind).sum += x.sum;
+        int nmh = sc_sv.nextInt();
+        sc_sv.nextLine();
+        for(int i=0;i<nmh;i++){
+            MH x = new MH(sc_sv.nextLine(), sc_sv.nextLine(), sc_sv.nextLine());
+            hmh.put(x.code, x);
         }
-        String code = sc.next();
-        for (int i = 0; i < n; i++) {
-            if(a.get(i).is(code)){
-                System.out.printf("Giang vien: %s\n", a.get(i).name);
-                a.get(i).a.forEach(e -> System.out.println(e));
-                System.out.printf("Tong: %.2f", a.get(i).sum);
-            }
+        int nbd = sc_sv.nextInt();
+        ArrayList<BD> a = new ArrayList<>();
+        for(int i=0;i<nbd;i++){
+            a.add(new BD(hsv.get(sc_sv.next()), hmh.get(sc_sv.next()), sc_sv.next()));
+        }
+        a.sort((BD x, BD y) -> {
+            if(x.Point == y.Point) return x.sv.code.compareTo(y.sv.code);
+            return y.Point.compareTo(x.Point);
+        });
+        int q = sc_sv.nextInt();
+        while(q-->0){
+            String code = sc_sv.next();
+            System.out.printf("BANG DIEM MON %s:\n", hmh.get(code));
+            a.forEach(e -> {
+                if(e.mh.code.compareTo(code) == 0) System.out.println(e);
+            });
         }
     }
 }

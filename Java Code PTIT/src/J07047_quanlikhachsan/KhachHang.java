@@ -1,25 +1,28 @@
 package J07047_quanlikhachsan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KhachHang implements Comparable<KhachHang> {
     private String cusId;
     private String cusName;
     private String idRoom;
-    private Date checkIn;
-    private Date checkOut;
+    private String checkIn;
+    private String checkOut;
     private long days;
     private double discount;
     private double price;
     private KhachSan khachSan;
 
-    public KhachHang(int i, String cusName, String idRoom, Date checkIn, Date checkOut) {
+    public KhachHang(int i, String cusName, String idRoom, String checkIn, String checkOut) throws ParseException {
         this.cusId = "KH" + String.format("%02d", i + 1);
         this.cusName = cusName;
         this.idRoom = idRoom;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.days = calculateDays();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        this.days = (sdf.parse(checkOut).getTime() - sdf.parse(checkIn).getTime())/1000/3600/24;
     }
 
     public String getIdRoom() {
@@ -32,12 +35,10 @@ public class KhachHang implements Comparable<KhachHang> {
         this.discount = calculateDiscount();
     }
 
-    private long calculateDays() {
-        long tmp = (this.checkOut.getTime() - this.checkIn.getTime()) / (1000L * 60 * 60 * 24);
-        return Math.max(tmp, 1);
-    }
-
     private double calculatePrice() {
+        if(this.days==0){
+            return (khachSan.getPrice() + khachSan.getPrice() * khachSan.getFee()) * 1;
+        }
         return (khachSan.getPrice() + khachSan.getPrice() * khachSan.getFee()) * days;
     }
 

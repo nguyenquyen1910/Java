@@ -16,10 +16,6 @@ public class KhachSan {
         return id;
     }
 
-    public String getType(){
-        return type;
-    }
-
     public double getPrice(){
         return price;
     }
