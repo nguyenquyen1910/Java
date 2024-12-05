@@ -27,12 +27,7 @@ public class Product implements Comparable<Product> {
             res+=tmp[i].charAt(0);
         }
         map.put(res,map.getOrDefault(res,0)+1);
-        if(map.containsKey(res)){
-            res += String.format("%02d",map.get(res));
-        }
-        else{
-            res += String.format("%02d",1);
-        }
+        res += String.format("%02d", map.getOrDefault(res, 1));
         return res;
     }
 
