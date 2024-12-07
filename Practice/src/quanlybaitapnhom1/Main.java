@@ -1,33 +1,48 @@
 package quanlybaitapnhom1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n= sc.nextInt(), m=sc.nextInt();
+        int n = sc.nextInt(), m=sc.nextInt();
         sc.nextLine();
-        List<Student> students = new ArrayList<>();
+        List<SinhVien> sinhVienList = new ArrayList<>();
         for(int i=0;i<n;i++){
-            students.add(new Student(sc.nextLine(),sc.nextLine(),sc.nextLine(),Integer.parseInt(sc.nextLine())));
+            sinhVienList.add(new SinhVien(sc.nextLine(), sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine())));
         }
-        List<Exercise> exercises = new ArrayList<>();
+
+        List<BaiTap> baiTapList = new ArrayList<>();
         for(int i=0;i<m;i++){
-            exercises.add(new Exercise(i,sc.nextLine()));
+            baiTapList.add(new BaiTap(i, sc.nextLine()));
         }
-        for(Student student : students){
-            for(Exercise exercise : exercises){
-                if(student.getExId()==exercise.getExid()){
-                    student.setExercise(exercise);
+
+        for(SinhVien sv : sinhVienList){
+            for(BaiTap bt : baiTapList){
+                if(sv.getMaBT()==bt.getMaBT()){
+                    sv.setBaiTap(bt);
+                    break;
                 }
             }
         }
-        Collections.sort(students);
-        for(Student student : students){
-            System.out.println(student);
+
+
+        int q = Integer.parseInt(sc.nextLine());
+        while(q-->0) {
+            int maBT = Integer.parseInt(sc.nextLine());
+            String tenBT = "";
+            System.out.println("DANH SACH NHOM "+maBT+":");
+            List<SinhVien> res = new ArrayList<>();
+            for(SinhVien sv : sinhVienList){
+                if(sv.getMaBT()==maBT){
+                    tenBT=sv.getBaiTap().getTenBT();
+                    res.add(sv);
+                }
+            }
+            res.forEach(System.out::println);
+            System.out.println("Bai tap dang ky: "+tenBT);
         }
     }
 }

@@ -1,19 +1,18 @@
 package thoigianonlinelientuc;
 
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Student implements Comparable<Student> {
-    private String name;
-    private Date timeStart;
-    private Date timeEnd;
+    private String name, timeStart, timeEnd;
     private long timeUsed;
 
-    public Student(String name, Date timeStart, Date timeEnd) {
+    public Student(String name, String timeStart, String timeEnd) throws ParseException {
         this.name = name;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.timeUsed = ChronoUnit.MINUTES.between(this.timeStart.toInstant(), this.timeEnd.toInstant());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        this.timeStart = sdf.format(sdf.parse(timeStart));
+        this.timeEnd = sdf.format(sdf.parse(timeEnd));
+        this.timeUsed = (sdf.parse(timeEnd).getTime() - sdf.parse(timeStart).getTime()) / (1000*60);
     }
 
     @Override
@@ -21,11 +20,10 @@ public class Student implements Comparable<Student> {
         return name+" "+timeUsed;
     }
 
-
     @Override
     public int compareTo(Student o) {
         if(this.timeUsed != o.timeUsed){
-            return (int) (o.timeUsed-this.timeUsed);
+            return Long.compare(o.timeUsed, this.timeUsed);
         }
         return this.name.compareTo(o.name);
     }
