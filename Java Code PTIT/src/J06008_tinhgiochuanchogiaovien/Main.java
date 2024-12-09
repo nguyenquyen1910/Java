@@ -40,7 +40,6 @@ public class Main {
         for(Time time : times){
             for(Subject subject : subjects){
                 if(time.getSubId().equals(subject.getId())){
-                    subject.addTime(time.getTime());
                     time.setSubject(subject);
                 }
             }
@@ -49,12 +48,12 @@ public class Main {
         String query = sc.nextLine();
         String lecturer="";
         String totalTime="";
-        List<Subject> resSub = new ArrayList<>();
+        List<Time> resSub = new ArrayList<>();
         for(Time time : times){
             if(time.getLecId().equals(query)){
                 lecturer = "Giang vien: "+time.getLecturer().getName();
                 totalTime = "Tong: "+String.format("%.2f",time.getLecturer().getTotalTime());
-                resSub.add(time.getSubject());
+                resSub.add(time);
             }
         }
         System.out.println(lecturer);

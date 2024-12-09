@@ -40,4 +40,9 @@ public class Time {
     public Subject getSubject() {
         return subject;
     }
+
+    @Override
+    public String toString() {
+        return subject.getName()+" "+time;
+    }
 }

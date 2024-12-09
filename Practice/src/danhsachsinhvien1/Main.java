@@ -1,17 +1,19 @@
 package danhsachsinhvien1;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ObjectInputStream inp = new ObjectInputStream(new FileInputStream("SV.in"));
-        ArrayList<SinhVien> list = (ArrayList<SinhVien>) inp.readObject();
-        for (SinhVien i : list) {
-            System.out.println(i);
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        List<SinhVien> sinhVienList = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            sinhVienList.add(new SinhVien(i, sc.nextLine(), sc.nextLine(), sc.nextLine(), Double.parseDouble(sc.nextLine())));
         }
+
+        sinhVienList.forEach(System.out::println);
     }
 }

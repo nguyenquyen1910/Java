@@ -1,7 +1,7 @@
 package hopvagiaocuahaifilevanban;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -10,7 +10,7 @@ public class WordSet {
     private Scanner sc;
     private TreeSet<String> mySet;
 
-    public WordSet(String input) throws IOException {
+    public WordSet(String input) throws FileNotFoundException {
         this.sc = new Scanner(new File(input));
         this.mySet = new TreeSet<>();
         String s;

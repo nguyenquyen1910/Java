@@ -1,41 +1,47 @@
 package bangtinhgiochuan;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n=Integer.parseInt(sc.nextLine());
-        List<Subject> subjects = new ArrayList<>();
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("MONHOC.in"));
+        int n = Integer.parseInt(sc.nextLine());
+        List<MonHoc> danhSachMH = new ArrayList<>();
         for(int i=0;i<n;i++){
-            String info = sc.nextLine();
-            subjects.add(new Subject(info.substring(0,7),info.substring(8)));
-        }
-        int m=Integer.parseInt(sc.nextLine());
-        List<Lecturer> lecturers = new ArrayList<>();
-        for(int i=0;i<m;i++){
-            String info = sc.nextLine();
-            lecturers.add(new Lecturer(info.substring(0,4),info.substring(5)));
-        }
-        int o=Integer.parseInt(sc.nextLine());
-        List<AssignTime> assignTimes = new ArrayList<>();
-        for(int i=0;i<o;i++){
-            String info = sc.nextLine();
-            assignTimes.add(new AssignTime(info.substring(0,4),info.substring(5,12),Double.parseDouble(info.substring(13))));
+            String[] tmp = sc.nextLine().trim().split("\\s+", 2);
+            danhSachMH.add(new MonHoc(tmp[0], tmp[1]));
         }
 
-        for(AssignTime assignTime : assignTimes){
-            for(Lecturer lecturer : lecturers){
-                if(assignTime.getLecId().equals(lecturer.getLecId())){
-                    assignTime.setLecturer(lecturer);
+        Scanner sc1 = new Scanner(new File("GIANGVIEN.in"));
+        int m = Integer.parseInt(sc1.nextLine());
+        List<GiangVien> danhSachGV = new ArrayList<>();
+        for(int i=0;i<m;i++){
+            String[] tmp = sc1.nextLine().trim().split("\\s+", 2);
+            danhSachGV.add(new GiangVien(tmp[0], tmp[1]));
+        }
+
+        Scanner sc2 = new Scanner(new File("GIOCHUAN.in"));
+        int o = Integer.parseInt(sc2.nextLine());
+        List<GioChuan> danhSachGC = new ArrayList<>();
+        for(int i=0;i<o;i++){
+            String[] tmp = sc2.nextLine().trim().split("\\s+", 3);
+            danhSachGC.add(new GioChuan(tmp[0], tmp[1], Double.parseDouble(tmp[2])));
+        }
+
+        for(GioChuan gioChuan : danhSachGC){
+            for(GiangVien giangVien : danhSachGV) {
+                if(gioChuan.getIdGV().equals(giangVien.getMa())){
+                    giangVien.addTime(gioChuan.getTime());
+                    gioChuan.setGiangVien(giangVien);
                     break;
                 }
             }
         }
-        for(Lecturer lecturer : lecturers){
-            System.out.println(lecturer);
-        }
+
+        danhSachGV.forEach(System.out::println);
     }
 }

@@ -40,6 +40,7 @@ public class Schedule implements Comparable<Schedule> {
         return session.getDate()+" "+session.getTime()+" "+session.getRoomId()+" "+subject.getSubName()+" "+group+" "+quantity;
     }
 
+
     @Override
     public int compareTo(Schedule o) {
         if(this.time != o.time){
