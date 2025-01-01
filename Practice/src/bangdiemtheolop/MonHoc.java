@@ -17,8 +17,4 @@ public class MonHoc {
     public String getTenMH() {
         return tenMH;
     }
-
-    public int getCredit() {
-        return credit;
-    }
 }

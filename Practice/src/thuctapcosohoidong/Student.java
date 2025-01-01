@@ -17,12 +17,4 @@ public class Student {
     public String getStuName() {
         return stuName;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
 }

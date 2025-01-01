@@ -30,8 +30,4 @@ public class SinhVien {
     public String getLop() {
         return lop;
     }
-
-    public String getEmail() {
-        return email;
-    }
 }

@@ -16,7 +16,7 @@ public class SoNTBaChuSo {
         return n>1;
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("DAYSO.DAT"));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("DAYSO.in"));
         List<Integer> list = (ArrayList<Integer>) ois.readObject();
         Set<Integer> set = new TreeSet<>();
 

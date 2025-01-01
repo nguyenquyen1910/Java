@@ -4,7 +4,7 @@ public class Topic {
     private String topId, lecName, topName;
 
     public Topic(int i, String lecName, String topName) {
-        this.topId = "DT"+String.format("%03d", i+1);
+        this.topId = "CD"+String.format("%03d", i+1);
         this.lecName = lecName;
         this.topName = topName;
     }
